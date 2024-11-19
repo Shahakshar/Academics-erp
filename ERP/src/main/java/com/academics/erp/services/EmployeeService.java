@@ -1,10 +1,13 @@
 package com.academics.erp.services;
 
 import com.academics.erp.DTO.RequestPasswordObj;
+import com.academics.erp.entities.Employee;
 import com.academics.erp.repository.EmployeeRepo;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -19,5 +22,9 @@ public class EmployeeService {
 
     public void updateEmployeePasswords(RequestPasswordObj passwordObj) {
         employeeRepo.updatePassword(passwordEncoder.encode(passwordObj.getPassword()));
+    }
+
+    public List<Employee> allEmployees() {
+        return employeeRepo.findAll();
     }
 }

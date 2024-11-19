@@ -1,11 +1,12 @@
 package com.academics.erp.controllers;
 
 import com.academics.erp.DTO.RequestPasswordObj;
+import com.academics.erp.entities.Employee;
 import com.academics.erp.services.EmployeeService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/auth")
 @RestController
@@ -21,6 +22,11 @@ public class EmployeeController {
     public String updatePassword(@RequestBody RequestPasswordObj passwordObj) {
         employeeService.updateEmployeePasswords(passwordObj);
         return "Password updated successfully";
+    }
+
+    @GetMapping("/employees")
+    public ResponseEntity<List<Employee>> allEmployees() {
+        return ResponseEntity.ok(employeeService.allEmployees());
     }
 
 }
