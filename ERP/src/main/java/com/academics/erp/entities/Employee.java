@@ -2,6 +2,11 @@ package com.academics.erp.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -9,7 +14,7 @@ import lombok.*;
 @Entity
 @Data
 @Builder
-public class Employee {
+public class Employee implements UserDetails {
 
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,4 +42,14 @@ public class Employee {
 
     @Column(nullable = false)
     private String password;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }
