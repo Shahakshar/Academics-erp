@@ -17,4 +17,7 @@ public interface AccountRepo extends JpaRepository<EmployeeSalary, Integer> {
             "LEFT JOIN EmployeeSalary es ON e.employee_id = es.employee_id")
     List<AccountResponse> findAllEmployeeDetails();
 
+    @Query("SELECT es FROM EmployeeSalary es")
+    List<EmployeeSalary> getAllEmployeeSalary();
+
 }
