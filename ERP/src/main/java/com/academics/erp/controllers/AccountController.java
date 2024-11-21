@@ -34,7 +34,15 @@ public class AccountController {
             return ResponseEntity.ok(accountService.getAllEmployeeDetails());
         } else {
             Optional<EmployeeSalary> detail = accountService.getAccountDetails(employee.getEmployee_id());
-            return ResponseEntity.ok(List.of(new AccountResponse().setEmployee(employee).setEmployeeSalary(detail.get())));
+            AccountResponse details = AccountResponse.builder().employee_id(employee.getEmployee_id())
+                    .first_name(employee.getFirst_name())
+                    .last_name(employee.getLast_name())
+                    .email(employee.getEmail())
+                    .title(employee.getTitle())
+                    .photograph_path(employee.getPhotograph_path())
+                    .department(employee.getDepartment())
+                    .employeeSalary(detail.get()).build();
+            return ResponseEntity.ok(List.of(details));
         }
     }
 

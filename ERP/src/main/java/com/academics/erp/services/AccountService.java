@@ -27,17 +27,6 @@ public class AccountService {
     }
 
     public List<AccountResponse> getAllEmployeeDetails() {
-        List<Employee> employees = employeeRepo.findAll();
-        List<AccountResponse> accountResponses = new ArrayList<>();
-
-        for (Employee employee : employees) {
-            Optional<EmployeeSalary> employeeSalary = accountRepo.findById(employee.getEmployee_id());
-            AccountResponse accountResponse = new AccountResponse()
-                    .setEmployee(employee)
-                    .setEmployeeSalary(employeeSalary.orElse(null));
-            accountResponses.add(accountResponse);
-        }
-
-        return accountResponses;
+        return accountRepo.findAllEmployeeDetails();
     }
 }
