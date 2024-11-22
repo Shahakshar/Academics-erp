@@ -1,7 +1,7 @@
 package com.academics.erp.Configuration;
 
+import com.academics.erp.exceptions.EmployeeNotFoundException;
 import com.academics.erp.repository.EmployeeRepo;
-import com.academics.erp.services.EmployeeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -24,7 +23,7 @@ public class AuthenticationConfiguration {
     @Bean
     UserDetailsService userDetailsService() {
         return username -> (UserDetails) employeeRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee With Email: " + username + " Not Found"));
     }
 
     @Bean
