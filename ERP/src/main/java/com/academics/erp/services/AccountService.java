@@ -4,7 +4,6 @@ import com.academics.erp.DTO.AccountResponse;
 import com.academics.erp.entities.Employee;
 import com.academics.erp.entities.EmployeeSalary;
 import com.academics.erp.repository.AccountRepo;
-import com.academics.erp.repository.EmployeeRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
