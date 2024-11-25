@@ -49,7 +49,7 @@ public class JwtService {
             UserDetails userDetails,
             long expiration
     ) {
-        return Jwts
+        String token = Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
@@ -57,6 +57,9 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+
+//        System.out.println("Generated JWT: " + token);
+        return token;
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -73,6 +76,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
+//        System.out.println(token);
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())

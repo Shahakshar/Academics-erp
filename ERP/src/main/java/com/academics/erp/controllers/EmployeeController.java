@@ -58,7 +58,6 @@ public class EmployeeController {
         }
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponseObj>> loginEmployee(@RequestBody LoginRequestObj loginRequestObj) {
         try {

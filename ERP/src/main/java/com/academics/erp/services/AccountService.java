@@ -41,6 +41,8 @@ public class AccountService {
             if (newSalaryMap.containsKey(existingSalary.getEmployee_id())) {
                 EmployeeSalary newSalary = newSalaryMap.get(existingSalary.getEmployee_id());
                 existingSalary.setAmount(existingSalary.getAmount() + newSalary.getAmount());
+                existingSalary.setDescription(newSalary.getDescription());
+                existingSalary.setPayment_date(newSalary.getPayment_date());
             }
         });
 
