@@ -18,72 +18,74 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Handle authentication-related exceptions
+    // Handle invalid credentials during login
     @ExceptionHandler(BadCredentialsException.class)
     public ProblemDetail handleBadCredentials(BadCredentialsException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, exception.getMessage());
-        detail.setProperty("description", "Invalid username or password");
+        detail.setProperty("description", "Invalid username or password. Please try again.");
         return detail;
     }
 
+    // Handle account status issues (locked, disabled, etc.)
     @ExceptionHandler(AccountStatusException.class)
     public ProblemDetail handleAccountStatus(AccountStatusException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
-        detail.setProperty("description", "Account is locked or disabled");
+        detail.setProperty("description", "Account is either locked, disabled, or not active.");
         return detail;
     }
 
+    // Handle access denied errors
     @ExceptionHandler(AccessDeniedException.class)
     public ProblemDetail handleAccessDenied(AccessDeniedException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
-        detail.setProperty("description", "Access denied to the requested resource");
+        detail.setProperty("description", "You do not have permission to access this resource.");
         return detail;
     }
 
+    // Handle JWT signature validation issues
     @ExceptionHandler(SignatureException.class)
     public ProblemDetail handleInvalidSignature(SignatureException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
-        detail.setProperty("description", "Invalid JWT signature");
+        detail.setProperty("description", "The provided JWT token signature is invalid.");
         return detail;
     }
 
+    // Handle expired JWT tokens
     @ExceptionHandler(ExpiredJwtException.class)
     public ProblemDetail handleExpiredJwt(ExpiredJwtException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage());
-        detail.setProperty("description", "JWT token has expired");
+        detail.setProperty("description", "The provided JWT token has expired. Please log in again.");
         return detail;
     }
 
     // Handle validation errors for @Valid annotated objects
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleValidationException(MethodArgumentNotValidException exception) {
-        ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation failed");
+        ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation failed.");
 
-        // Extract field errors
-        Map<String, String> errors = new HashMap<>();
+        // Extract validation errors
+        Map<String, String> validationErrors = new HashMap<>();
         for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
-            errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+            validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        detail.setProperty("validationErrors", errors);
+        detail.setProperty("validationErrors", validationErrors);
         return detail;
     }
 
-    // Handle custom exceptions (e.g., Employee not found)
+    // Handle employee not found (custom exception)
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ProblemDetail handleEmployeeNotFound(EmployeeNotFoundException exception) {
         ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
-        detail.setProperty("description", "The requested employee does not exist");
+        detail.setProperty("description", "The employee you are trying to access does not exist.");
         return detail;
     }
 
     // Handle all other exceptions
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGeneralException(Exception exception) {
-        exception.printStackTrace(); // TODO: Log to observability tool
-        ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
+        exception.printStackTrace(); // TODO: Send stack trace to an observability tool like Sentry, Datadog, etc.
+        ProblemDetail detail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.");
         detail.setProperty("description", exception.getMessage());
         return detail;
     }
 }
-
-

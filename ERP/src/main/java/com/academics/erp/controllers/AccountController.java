@@ -1,7 +1,7 @@
 package com.academics.erp.controllers;
 
-import com.academics.erp.DTO.AccountResponse;
-import com.academics.erp.DTO.ApiResponse;
+import com.academics.erp.dto.AccountResponse;
+import com.academics.erp.dto.ApiResponse;
 import com.academics.erp.entities.Employee;
 import com.academics.erp.entities.EmployeeSalary;
 import com.academics.erp.services.AccountService;
@@ -115,6 +115,35 @@ public class AccountController {
             ApiResponse<Void> errorResponse = ApiResponse.<Void>builder()
                     .success(false)
                     .message("Failed to update salaries")
+                    .errors(ex.getMessage())
+                    .data(null)
+                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @PostMapping("/salary")
+    public ResponseEntity<ApiResponse<Void>> setSalary(@RequestBody @Valid EmployeeSalary employeeSalary) {
+        try {
+            // Save the salary using the service layer
+            accountService.saveSalary(employeeSalary);
+
+            // Build the success response
+            ApiResponse<Void> response = ApiResponse.<Void>builder()
+                    .success(true)
+                    .message("Salary saved successfully")
+                    .data(null)
+                    .statusCode(HttpStatus.OK.value())
+                    .build();
+
+            return ResponseEntity.ok(response);
+        } catch (Exception ex) {
+            // Handle exceptions and build the error response
+            ApiResponse<Void> errorResponse = ApiResponse.<Void>builder()
+                    .success(false)
+                    .message("Failed to save salary")
                     .errors(ex.getMessage())
                     .data(null)
                     .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())

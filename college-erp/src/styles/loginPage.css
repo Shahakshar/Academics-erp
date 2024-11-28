@@ -1,48 +1,147 @@
-.login-container {
-    max-width: 400px;
+/* Page Background */
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    /*background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradient background */
+    background-size: cover;
+    background-attachment: fixed;
+    color: white; /* Text color set to white for better contrast */
+    height: 100vh; /* Ensure the background covers the whole page */
+    display: flex; /* Use flexbox to align content */
+    justify-content: center;
+    align-items: center;
+}
+
+#root{
+    height: 100vh;
+    width: 100%;
+}
+/* Container for Image and Form */
+.container {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    border-radius: 10px;
     margin: auto;
-    padding: 20px;
+}
+
+/* Left Side (Image) */
+.left-side {
+    flex: 1;
+    background-image: url("../Assets/loginBg.png"); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px 0 0 10px; /* Rounded corners on the left */
+}
+
+/* Right Side (Login Form) */
+.login-container {
+    flex: 1;
+    max-width: 30%;
+    margin: auto;
+    margin-left: 5%;
+    padding: 40px;
     text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent background for contrast */
+    backdrop-filter: blur(10px); /* Adds a blur effect on the background */
+    transition: background 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+/* Login Page Header */
 .login-container h2 {
-    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #333;
 }
 
+/* Form Group (inputs and labels) */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
 .form-group label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 8px;
     display: block;
-    margin-bottom: 5px;
 }
 
+/* Input Fields */
 .form-group input {
     width: 100%;
-    padding: 8px;
+    padding: 14px 18px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
     box-sizing: border-box;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 15px;
+/* Input Focus Effect */
+.form-group input:focus {
+    border-color: #0072ff;
+    background-color: #fff;
+    outline: none;
 }
 
+/* Error Message */
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Submit Button */
 button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 14px 24px;
+    background-color: #0072ff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 16px;
     cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Button Hover Effect */
 button:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+/* Button Active Effect */
+button:active {
+    transform: translateY(0);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column; /* Stack the image and form vertically on small screens */
+        height: auto;
+    }
+    .left-side {
+        height: 200px; /* Adjust height for small screens */
+        border-radius: 10px 10px 0 0;
+    }
+    .login-container {
+        max-width: 90%;
+        padding: 20px;
+    }
 }

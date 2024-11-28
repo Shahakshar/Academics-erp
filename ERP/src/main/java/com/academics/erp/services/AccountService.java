@@ -1,9 +1,10 @@
 package com.academics.erp.services;
 
-import com.academics.erp.DTO.AccountResponse;
+import com.academics.erp.dto.AccountResponse;
 import com.academics.erp.entities.Employee;
 import com.academics.erp.entities.EmployeeSalary;
 import com.academics.erp.repository.AccountRepo;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +50,14 @@ public class AccountService {
         accountRepo.saveAll(empSalaryList);
         return "success!";
 
+    }
+
+    public void saveSalary(@Valid EmployeeSalary employeeSalary) {
+        accountRepo.updateSalaryOfEmployee(
+                employeeSalary.getAmount(),
+                employeeSalary.getDescription(),
+                employeeSalary.getPayment_date(),
+                employeeSalary.getEmployee_id()
+        );
     }
 }

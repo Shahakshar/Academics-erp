@@ -1,6 +1,4 @@
-package com.academics.erp.DTO;
-
-import java.util.List;
+package com.academics.erp.dto;
 
 public class RequestPasswordObj {
 

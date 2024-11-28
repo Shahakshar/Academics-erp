@@ -1,78 +1,219 @@
 .dashboard-container {
-    text-align: center;
-    align-items: center;
-    justify: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8fafc; /* Lighter, modern background */
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif; /* Modern system font stack */
 }
 
+/* Navbar Styling */
 .navbar {
-    position: sticky;
-    top: 0; /* Position it at the top of the viewport */
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    width: content;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1% 0% ;
+  background-color: white;
+  color: #1e293b; /* Dark slate color for better contrast */
+  width: 100%;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .navbar h2 {
-    margin: 0;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  background: linear-gradient(45deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .logout-button {
-    background-color: white;
-    color: #007bff;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 4px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgb(37 99 235 / 0.1);
 }
 
 .logout-button:hover {
-    background-color: #0056b3;
-    color: white;
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgb(37 99 235 / 0.2);
 }
 
+.logout-button:active {
+  transform: translateY(0);
+}
+
+/* Card Container for Employee Cards */
 .cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  margin-top: 32px;
+  padding: 0 16px;
 }
 
+/* Styling for Each Employee Card */
 .employee-card {
-  width: 250px;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgb(241 245 249);
 }
 
 .employee-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  border-color: rgb(226 232 240);
 }
 
+/* Styling the Employee Photo in the Card */
 .employee-photo {
-  width: content;
-  height: 150px;
+  width: 100%;
+  height: 220px;
   object-fit: cover;
+  border-bottom: 1px solid rgb(241 245 249);
+  transition: transform 0.3s ease;
 }
 
+.employee-card:hover .employee-photo {
+  transform: scale(1.05);
+}
+
+/* Styling Employee Details in the Card */
 .employee-details {
-  padding: 15px;
+  padding: 24px;
   text-align: left;
+  background-color: white;
 }
 
 .employee-details h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #0f172a;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .employee-details p {
-  margin: 5px 0;
-  color: #555;
+  margin: 6px 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.employee-details .title {
+  font-weight: 500;
+  color: #2563eb;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.employee-details .department {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.employee-details .email {
+  display: inline-block;
+  margin-top: 12px;
+  color: #2563eb;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.employee-details .email:hover {
+  color: #1d4ed8;
+  border-bottom-color: #1d4ed8;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .navbar h2 {
+    font-size: 20px;
+  }
+
+  .logout-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .employee-details {
+    padding: 16px;
+  }
+}
+
+/* Loading States */
+.employee-card.loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better Focus States */
+.logout-button:focus,
+.employee-card:focus,
+.employee-details .email:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }

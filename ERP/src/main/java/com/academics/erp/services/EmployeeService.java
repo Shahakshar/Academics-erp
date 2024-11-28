@@ -1,7 +1,7 @@
 package com.academics.erp.services;
 
-import com.academics.erp.DTO.LoginRequestObj;
-import com.academics.erp.DTO.RequestPasswordObj;
+import com.academics.erp.dto.LoginRequestObj;
+import com.academics.erp.dto.RequestPasswordObj;
 import com.academics.erp.entities.Employee;
 import com.academics.erp.repository.EmployeeRepo;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,7 +9,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

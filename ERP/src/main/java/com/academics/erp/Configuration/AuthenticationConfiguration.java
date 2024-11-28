@@ -1,4 +1,4 @@
-package com.academics.erp.Configuration;
+package com.academics.erp.configuration;
 
 import com.academics.erp.exceptions.EmployeeNotFoundException;
 import com.academics.erp.repository.EmployeeRepo;

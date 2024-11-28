@@ -1,4 +1,4 @@
-package com.academics.erp.DTO;
+package com.academics.erp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

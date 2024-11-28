@@ -1,9 +1,9 @@
 package com.academics.erp.controllers;
 
-import com.academics.erp.DTO.ApiResponse;
-import com.academics.erp.DTO.LoginRequestObj;
-import com.academics.erp.DTO.LoginResponseObj;
-import com.academics.erp.DTO.RequestPasswordObj;
+import com.academics.erp.dto.ApiResponse;
+import com.academics.erp.dto.LoginRequestObj;
+import com.academics.erp.dto.LoginResponseObj;
+import com.academics.erp.dto.RequestPasswordObj;
 import com.academics.erp.entities.Employee;
 import com.academics.erp.services.EmployeeService;
 import com.academics.erp.services.JwtService;

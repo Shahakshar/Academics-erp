@@ -1,4 +1,4 @@
-package com.academics.erp.Configuration;
+package com.academics.erp.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
