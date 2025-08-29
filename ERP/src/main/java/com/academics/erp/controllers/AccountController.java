@@ -95,26 +95,26 @@ public class AccountController {
     @PutMapping("/update-amount")
     public ResponseEntity<ApiResponse<Void>> updateAmount(@RequestBody @Valid List<EmployeeSalary> employeeSalaries) {
         try {
-            // Retrieve the currently authenticated employee
+            if (employeeSalaries.isEmpty()) {
+                throw new IllegalArgumentException("No salary data found");
+            }
             Employee currentEmployee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-            // Update the salaries using the service layer
             accountService.updateAmount(employeeSalaries, currentEmployee);
 
-            // Build the success response
             ApiResponse<Void> response = ApiResponse.<Void>builder()
                     .success(true)
-                    .message("Salaries updated successfully")
+                    .message("Salary disbursement requests queued")
                     .data(null)
-                    .statusCode(HttpStatus.OK.value())
+                    .statusCode(HttpStatus.ACCEPTED.value())
                     .build();
 
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+
         } catch (Exception ex) {
-            // Handle exceptions and build the error response
             ApiResponse<Void> errorResponse = ApiResponse.<Void>builder()
                     .success(false)
-                    .message("Failed to update salaries")
+                    .message("Failed to queue salary requests")
                     .errors(ex.getMessage())
                     .data(null)
                     .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -123,27 +123,26 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
+
 
     @PostMapping("/salary")
     public ResponseEntity<ApiResponse<Void>> setSalary(@RequestBody @Valid EmployeeSalary employeeSalary) {
         try {
-            // Save the salary using the service layer
             accountService.saveSalary(employeeSalary);
 
-            // Build the success response
             ApiResponse<Void> response = ApiResponse.<Void>builder()
                     .success(true)
-                    .message("Salary saved successfully")
+                    .message("Salary request queued for disbursement")
                     .data(null)
-                    .statusCode(HttpStatus.OK.value())
+                    .statusCode(HttpStatus.ACCEPTED.value()) // better than 200 OK
                     .build();
 
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+
         } catch (Exception ex) {
-            // Handle exceptions and build the error response
             ApiResponse<Void> errorResponse = ApiResponse.<Void>builder()
                     .success(false)
-                    .message("Failed to save salary")
+                    .message("Failed to queue salary request")
                     .errors(ex.getMessage())
                     .data(null)
                     .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -152,5 +151,6 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
+
 
 }
